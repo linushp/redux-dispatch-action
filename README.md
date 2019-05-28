@@ -1,6 +1,13 @@
 # redux-dispatch-action
 
 
+```javascript
+
+npm install --save redux-dispatch-action
+
+
+```
+
 actions.js
 
 ```javascript
