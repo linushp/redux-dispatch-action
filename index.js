@@ -17,6 +17,7 @@ function handleAutoDispatch(target, key, descriptor, type, meta = {}) {
     var originFunction = descriptor.value;
 
     descriptor.value = function () {
+
         var that = this;
         var args = Array.from(arguments);
 

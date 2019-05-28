@@ -4,8 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linushp/redux-dispatch-action.git"
+  },
+  "keywords": [
+    "redux-dispatch-action"
+  ],
+  "author": "luanhaipeng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linushp/redux-dispatch-action/issues"
+  },
+  "homepage": "https://github.com/linushp/redux-dispatch-action#readme"
 }
