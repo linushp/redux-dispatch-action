@@ -56,6 +56,93 @@ export default new Actions();
 
 
 
+reducers.js
+
+```javascript
+
+
+import { combineReducers } from 'redux'
+import {
+  SELECT_SUBREDDIT, INVALIDATE_SUBREDDIT,
+  REQUEST_POSTS, RECEIVE_POSTS
+} from '../actions'
+
+const selectedSubreddit = (state = 'reactjs', action) => {
+
+  switch (action.type) {
+    case SELECT_SUBREDDIT:
+        var args = action.args || [];
+      return args[0];
+    default:
+      return state
+  }
+};
+
+const posts = (state = {
+  isFetching: false,
+  didInvalidate: false,
+  items: []
+}, action) => {
+
+    var payload = action.payload;
+
+  switch (action.type) {
+    case INVALIDATE_SUBREDDIT:
+      return {
+        ...state,
+        didInvalidate: true
+      }
+    case REQUEST_POSTS + '_PENDING':
+      return {
+        ...state,
+        isFetching: true,
+        didInvalidate: false
+      }
+    case REQUEST_POSTS + '_FULFILLED':
+      return {
+        ...state,
+        isFetching: false,
+        didInvalidate: false,
+        items: payload.posts,
+        lastUpdated: payload.receivedAt
+      }
+    default:
+      return state
+  }
+}
+
+const postsBySubreddit = (state = { }, action) => {
+
+  var payload = action.payload;
+  var args = action.args || [];
+
+  switch (action.type) {
+    case INVALIDATE_SUBREDDIT:
+    case 'REQUEST_POSTS_PENDING':
+    case 'REQUEST_POSTS_FULFILLED':
+        var subreddit = args[0];
+
+        return {
+        ...state,
+        [subreddit]: posts(state[subreddit], action)
+      }
+    default:
+      return state
+  }
+}
+
+const rootReducer = combineReducers({
+  postsBySubreddit,
+  selectedSubreddit
+})
+
+export default rootReducer
+
+
+```
+
+
+
 
 index.js
 
@@ -179,3 +266,16 @@ module.exports = {
     ]
 };
 ```
+
+
+.babelrc 
+
+```json
+
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react" , "module:babel7presetstage0"]
+}
+
+```
+
+
